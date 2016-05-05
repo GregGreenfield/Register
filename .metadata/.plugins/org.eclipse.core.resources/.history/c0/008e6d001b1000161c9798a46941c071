@@ -1,0 +1,47 @@
+package register;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Teacher {
+	private int TID;
+	private String name;
+	private List<Classes> classes;
+	
+	public Teacher(int TID, String name)
+	{
+		System.out.println("Teacher made!!!!");
+		this.TID = TID;
+		this.name = name;
+		classes = new ArrayList<Classes>();
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public int getTID(){
+		return TID;
+	}
+	
+	public void addClass(int classID, String className){
+		Classes cl = new Classes(classID, className);
+		
+		classes.add(cl);		
+	}
+	
+	public String getClasses(){
+		String ret = "";
+	
+		for(int i = 0; i < classes.size(); i++){
+			System.out.println(classes.get(i).getName());
+		}
+		
+		//for(Classes cl : classes){
+		//	System.out.println(cl);
+
+//		}
+				
+		return ret;
+	}
+}

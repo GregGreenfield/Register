@@ -1,0 +1,11 @@
+package register;
+
+public class Classes {
+	private int classID;
+	private String name;
+	
+	public Classes(int classID, String name){
+		this.classID = classID;
+		this.name = name;
+	}
+}

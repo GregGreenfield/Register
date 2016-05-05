@@ -1,0 +1,17 @@
+package register;
+
+public class Teacher {
+	private int TID;
+	private String name;
+	
+	public Teacher(int TID, String name)
+	{
+		System.out.println("Teacher made!!!!");
+		this.TID = TID;
+		this.name = name;
+	}
+	
+	public String getName(){
+		return name;
+	}
+}

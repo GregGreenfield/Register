@@ -1,0 +1,15 @@
+package register;
+
+public class Teacher {
+	private String name;
+	
+	public Teacher(String name)
+	{
+		System.out.println("Teacher made!!!!");
+		this.name = name;
+	}
+	
+	public String getName(){
+		return name;
+	}
+}
