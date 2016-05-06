@@ -40,4 +40,13 @@ public class Teacher {
 		
 		return ls;
 	}
+
+	public Classes getClass(String classID){
+		for(int i = 0; i < classes.size(); i++){
+			if(classes.get(i).getClassID().equals(classID))
+				return classes.get(i);
+		}
+	
+		return new Classes(0, "false");
+	}
 }

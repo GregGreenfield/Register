@@ -1,0 +1,42 @@
+package register;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Classes {
+	private Integer classID;
+	private String name;
+	private List<Register> registers;
+	
+	public Classes(int classID, String name){
+		this.classID = classID;
+		this.name = name;
+		registers = new ArrayList<Register>();
+		
+		System.out.println("Class Made!");
+	}
+	
+	public String getClassID(){
+		return classID.toString();
+	}
+	public String getName(){
+		return name;
+	}
+	
+	public void addRegister(String date, String time){
+		Register rs = new Register(date, time);
+		
+		registers.add(rs);
+	}
+	
+	public List getRegisters(){
+		List<String> ls = new ArrayList<String>();
+		
+		for(int i = 0; i < registers.size(); i++){
+			ls.add(registers.get(i).getDate() + " " + registers.get(i).getTime() );
+		}
+		
+		return ls;
+	}
+
+}

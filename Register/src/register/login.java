@@ -67,7 +67,7 @@ public class login extends JFrame {
 				
 				if(TID.getText().toString().length() > 0  && PASS.getText().toString().length() > 0)
 					if(Program.createTeacher(TID.getText().toString().toLowerCase(), PASS.getText().toString().toLowerCase()))
-						Program.changeState(State.Register);	
+						Program.changeState(State.Class);	
 			}
 		});
 		sl_contentPane.putConstraint(SpringLayout.NORTH, LOGINBTN, 164, SpringLayout.NORTH, contentPane);
