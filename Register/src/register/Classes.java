@@ -34,10 +34,19 @@ public class Classes {
 		
 		for(int i = 0; i < registers.size(); i++){
 			System.out.println(registers.get(i).getDate() + " " + registers.get(i).getTime() );
-			ls.add(registers.get(i).getDate() + " " + registers.get(i).getTime() );
+			ls.add(registers.get(i).getRegisterID() + " " + registers.get(i).getDate() + " " + registers.get(i).getTime() );
 		}
 		
 		return ls;
+	}
+	public Register getRegister(String classID){
+		for(int i = 0; i < registers.size(); i++){
+			if(registers.get(i).getRegisterID().equals(classID))
+				return registers.get(i);
+		}
+	
+		return new Register(0, "false", "false");
+		
 	}
 
 }

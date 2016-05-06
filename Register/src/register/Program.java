@@ -10,14 +10,16 @@ import java.sql.Statement;
 
 
 public class Program {
-	public enum State{ Login, Class, Register, Idle };
+	public enum State{ Login, Class, Register, Student, Idle };
 	
 	private static State state;
 	private static login frame;
 	private static selectClass frame2;
 	private static selectRegister frame3;
+	private static StudentDisplay frame4;
 	private static Teacher teacher;
 	private static Classes cl;
+	private static Register R1;
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String DB_URL = "jdbc:mysql://mydb.c2abvobvruo6.ap-southeast-2.rds.amazonaws.com:3306/";
@@ -91,6 +93,22 @@ public class Program {
 				state = State.Idle;
 				break;
 				
+			case Student:
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							frame3.setVisible(false);
+							frame4 = new StudentDisplay();
+							frame4.addToList(R1.getStudents());
+							frame4.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				
+				state = State.Idle;
+				break;
 			case Idle:
 				break;
 			}
@@ -278,8 +296,9 @@ public class Program {
 	}
 
 	public static void addStudents(String selection){
-		Connection conn = null;
-		Statement stmt = null;
+		R1 = cl.getRegister(selection);
+		Connection conn = null, conn1 = null;
+		Statement stmt = null,stmt1 = null;
 	 
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -290,23 +309,51 @@ public class Program {
 			System.out.println("Creating statement...");
 			stmt = conn.createStatement();
 			String sql;
-			sql = "SELECT registerID, classID, registerDate, registerTime FROM registerdb.Enroll WHERE registerID = " + selection.substring(0, selection.indexOf(" ")) + ";";
+			sql = "SELECT enrolID, studentID, attended, ellrolled FROM registerdb.Enrol WHERE registerID = " + selection.substring(0, selection.indexOf(" ")) + ";";
 			ResultSet rs = stmt.executeQuery(sql);
 
+			System.out.println(sql);
+			
+			
 			while(rs.next()){
-				int registerID = rs.getInt("registerID");
-				int classID  = rs.getInt("classID");
-				String registerDate = rs.getString("registerDate");
-				String registerTime = rs.getString("registerTime");
+				int enrolID = rs.getInt("enrolID");
+				int studentID  = rs.getInt("studentID");
+				String attended = rs.getString("attended");
+				String enrolled = rs.getString("ellrolled");
 				
-				System.out.println("Date: " + registerDate + " " + registerTime );
-	    	 
-				cl.addRegister(registerID, registerDate, registerTime);
+				System.out.println("Student: " + studentID + " " + attended + " " + enrolled );
+				
+				String sqlName = "SELECT studentName, RFID FROM registerdb.Student Where studentID = " + studentID + ";";
+				System.out.println(sqlName);
+				
+				conn1 = DriverManager.getConnection(DB_URL,USER,PASS);
+				stmt1 = conn.createStatement();
+				ResultSet ss = stmt1.executeQuery(sqlName);
+				
+				if(ss.next()){
+					String name = ss.getString("studentName");
+					String RFID = ss.getString("RFID");
+				
+					System.out.println(name + RFID);
+					boolean attend = false, enroll = false;
+					if(attended.equals("t"))
+						attend = true;
+				
+					if(enrolled.equals("t"))
+						enroll = true;
+								
+					R1.addStudent(studentID, name, RFID, enroll, attend);
+				}
+				
+				ss.close();
+				stmt1.close();
+				conn1.close();
 			}
 	     			     
 			rs.close();
 			stmt.close();
 			conn.close();
+			
 	     
 	 	 	}catch(SQLException se){
 	 	 		se.printStackTrace();

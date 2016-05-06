@@ -2,35 +2,24 @@ package register;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SpringLayout;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class StudentDisplay extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StudentDisplay frame = new StudentDisplay();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JList list, list_1, list_2;
+	private DefaultListModel here = new DefaultListModel();
+	private DefaultListModel absent = new DefaultListModel();
+	private DefaultListModel more = new DefaultListModel();
 	/**
 	 * Create the frame.
 	 */
@@ -43,12 +32,12 @@ public class StudentDisplay extends JFrame {
 		SpringLayout sl_contentPane = new SpringLayout();
 		contentPane.setLayout(sl_contentPane);
 		
-		JList list = new JList();
+		list = new JList(here);
 		sl_contentPane.putConstraint(SpringLayout.WEST, list, 54, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, list, -229, SpringLayout.EAST, contentPane);
 		contentPane.add(list);
 		
-		JList list_1 = new JList();
+		list_1 = new JList(absent);
 		sl_contentPane.putConstraint(SpringLayout.WEST, list_1, 51, SpringLayout.EAST, list);
 		sl_contentPane.putConstraint(SpringLayout.EAST, list_1, -66, SpringLayout.EAST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, list, 173, SpringLayout.NORTH, list_1);
@@ -57,7 +46,7 @@ public class StudentDisplay extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, list_1, -272, SpringLayout.SOUTH, contentPane);
 		contentPane.add(list_1);
 		
-		JList list_2 = new JList();
+		list_2 = new JList(more);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, list_2, 349, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, list_2, 58, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, list_2, -69, SpringLayout.SOUTH, contentPane);
@@ -93,5 +82,17 @@ public class StudentDisplay extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblScannedInAnd, -10, SpringLayout.NORTH, list_2);
 		sl_contentPane.putConstraint(SpringLayout.EAST, lblScannedInAnd, -127, SpringLayout.EAST, contentPane);
 		contentPane.add(lblScannedInAnd);
+	}
+	
+	public void addToList(List ls){		
+		for(int i = 0; i < ls.size(); i++){
+			if(((Student) ls.get(i)).isAttend())
+				here.addElement(((Student) ls.get(i)).getStudentID() + " " +((Student) ls.get(i)).getName());
+			else if (((Student) ls.get(i)).isEnrolled())
+				absent.addElement(((Student) ls.get(i)).getStudentID() + " " +((Student) ls.get(i)).getName());
+			else
+				more.addElement(((Student) ls.get(i)).getStudentID() + " " +((Student) ls.get(i)).getName());
+			
+		}
 	}
 }

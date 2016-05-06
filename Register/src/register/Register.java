@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Register {
-	private int registerID;
+	private Integer registerID;
 	private String date;
 	private String time;
 	private List<Student> students;
@@ -23,10 +23,18 @@ public class Register {
 	public String getTime(){
 		return time;
 	}
+	public String getRegisterID(){
+		return registerID.toString();
+	}
 	
-	public void addStudent(int id, String name, boolean enrolled, boolean attend){
-		Student st = new Student(id, name, enrolled, attend);
+	public void addStudent(int id, String name,String RFID, boolean enrolled, boolean attend){
+		Student st = new Student(id, name, RFID, enrolled, attend);
 		
 		students.add(st);
 	}
+	
+	public List getStudents(){
+		return students;
+	}
+	
 }

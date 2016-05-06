@@ -63,9 +63,8 @@ public class selectRegister extends JFrame {
 				
 				if(!selected.isEmpty())
 				{
-					Program.createRegister(selected);
-					System.out.println("Selected: " + selected);
-					Program.changeState(State.Register);
+					Program.addStudents(selected);
+					Program.changeState(State.Student);
 				}
 			}
 		});
