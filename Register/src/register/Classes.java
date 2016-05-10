@@ -39,6 +39,18 @@ public class Classes {
 		
 		return ls;
 	}
+	
+	public String getDetails(String regID){
+		String display = null;
+		
+		for(int i = 0; i < registers.size(); i++){
+			if(registers.get(i).getRegisterID().equals(regID))
+				display = registers.get(i).getRegisterID() + " " + registers.get(i).getDate() + " " + registers.get(i).getTime();
+		}
+		
+		return display;
+	}
+	
 	public Register getRegister(String classID){
 		for(int i = 0; i < registers.size(); i++){
 			if(registers.get(i).getRegisterID().equals(classID))
@@ -46,7 +58,21 @@ public class Classes {
 		}
 	
 		return new Register(0, "false", "false");
+	}
+	
+	public int getSizeOfRegister(){
+		return registers.size();
+	}
+	
+	public Integer unusedRegID(){
+		Integer id = registers.size() + 1;
 		
+		for(int i = 0; i < registers.size(); i++){
+			if(registers.get(i).getRegisterID().equals(i))
+				id = i;
+		}
+		
+		return id;
 	}
 
 }

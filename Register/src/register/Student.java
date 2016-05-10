@@ -1,7 +1,7 @@
 package register;
 
 public class Student {
-	private int StudentID;
+	private Integer StudentID;
 	private String name;
 	private String RFID;
 	private boolean enrolled;
@@ -15,8 +15,8 @@ public class Student {
 		this.attend = attend;
 	}
 
-	public int getStudentID() {
-		return StudentID;
+	public String getStudentID() {
+		return StudentID.toString();
 	}
 
 	public void setStudentID(int studentID) {
@@ -53,5 +53,12 @@ public class Student {
 
 	public void setAttend(boolean attend) {
 		this.attend = attend;
+	}
+	
+	public void changeAttend(){
+		if(attend == true)
+			attend = false;
+		else if(attend == false)
+			attend = true;
 	}
 }

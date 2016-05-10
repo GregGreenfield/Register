@@ -1,0 +1,85 @@
+package register;
+
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import register.Program.State;
+
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.SpringLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+
+public class selectRegister extends JFrame {
+	private DefaultListModel listModel = new DefaultListModel();
+	private JPanel contentPane;
+	private JList list;
+
+	/**
+	 * Create the frame.
+	 */
+	public selectRegister() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 514, 419);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		SpringLayout sl_contentPane = new SpringLayout();
+		contentPane.setLayout(sl_contentPane);
+		
+		JButton AddBtn = new JButton("Add Register");
+		AddBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		contentPane.add(AddBtn);
+		
+		JButton ContinueBTN = new JButton("Continue");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, AddBtn, 0, SpringLayout.NORTH, ContinueBTN);
+		sl_contentPane.putConstraint(SpringLayout.EAST, AddBtn, -6, SpringLayout.WEST, ContinueBTN);
+		sl_contentPane.putConstraint(SpringLayout.WEST, ContinueBTN, 253, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, ContinueBTN, -10, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, ContinueBTN, -26, SpringLayout.EAST, contentPane);
+		ContinueBTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String selected = list.getSelectedValue().toString();
+				
+				if(!selected.isEmpty())
+				{
+					Program.addStudents(selected);
+					Program.changeState(State.Student);
+				}
+			}
+		});
+		contentPane.add(ContinueBTN);
+		
+		JButton DeleteBtn = new JButton("Delete Register");
+		sl_contentPane.putConstraint(SpringLayout.WEST, DeleteBtn, 10, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, DeleteBtn, -10, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, DeleteBtn, -6, SpringLayout.WEST, AddBtn);
+		contentPane.add(DeleteBtn);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel, 0, SpringLayout.EAST, AddBtn);
+		contentPane.add(lblNewLabel);
+		
+		list = new JList(listModel);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel, -9, SpringLayout.NORTH, list);
+		sl_contentPane.putConstraint(SpringLayout.EAST, list, 0, SpringLayout.EAST, ContinueBTN);
+		contentPane.add(list);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, list, 33, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, list, 15, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, list, -6, SpringLayout.NORTH, DeleteBtn);
+	}
+	
+	public void addToList(List ls){		
+		for(int i = 0; i < ls.size(); i++)
+			listModel.addElement(ls.get(i));
+	}
+}

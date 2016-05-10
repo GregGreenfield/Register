@@ -7,11 +7,16 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import register.Program.State;
+
 import javax.swing.SpringLayout;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StudentDisplay extends JFrame {
 
@@ -53,20 +58,71 @@ public class StudentDisplay extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, list_2, -44, SpringLayout.EAST, contentPane);
 		contentPane.add(list_2);
 		
-		JButton btnNewButton = new JButton("New button");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton, 260, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, btnNewButton, 51, SpringLayout.WEST, contentPane);
-		contentPane.add(btnNewButton);
+		JButton AbsentBtn = new JButton("Change to absent");
+		AbsentBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String selected = "";
+				try{
+					selected = list.getSelectedValue().toString();
+				}catch(Exception e){
+					System.out.println("Nothing selected!");
+				}
+				
+				if(!selected.isEmpty())
+				{
+					absent.addElement(list.getSelectedValue());
+					here.remove(list.getSelectedIndex());
+					Program.changeStudentState(selected);
+				}
+			}
+		});
+		sl_contentPane.putConstraint(SpringLayout.NORTH, AbsentBtn, 260, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, AbsentBtn, 51, SpringLayout.WEST, contentPane);
+		contentPane.add(AbsentBtn);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton_1, 0, SpringLayout.NORTH, btnNewButton);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnNewButton_1, -73, SpringLayout.EAST, contentPane);
-		contentPane.add(btnNewButton_1);
+		JButton AttendBtn = new JButton("Change to attened");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, AttendBtn, 0, SpringLayout.NORTH, AbsentBtn);
+		sl_contentPane.putConstraint(SpringLayout.EAST, AttendBtn, -56, SpringLayout.EAST, contentPane);
+		AttendBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String selected = "";
+				try{
+					selected = list_1.getSelectedValue().toString();
+				}catch(Exception e){
+					System.out.println("Nothing selected!");
+				}
+				
+				if(!selected.isEmpty())
+				{
+					here.addElement(list_1.getSelectedValue());
+					absent.remove(list_1.getSelectedIndex());
+					Program.changeStudentState(selected);
+				}
+			}
+		});
+		contentPane.add(AttendBtn);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		sl_contentPane.putConstraint(SpringLayout.WEST, btnNewButton_2, 137, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnNewButton_2, -10, SpringLayout.SOUTH, contentPane);
-		contentPane.add(btnNewButton_2);
+		JButton EnrolAndHere = new JButton("Add to enrolled & here");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, EnrolAndHere, 6, SpringLayout.SOUTH, list_2);
+		EnrolAndHere.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String selected = "";
+				
+				try{
+					selected = list_2.getSelectedValue().toString();
+				}catch(Exception e){
+					System.out.println("Nothing selected!");
+				}
+				
+				if(!selected.isEmpty())
+				{
+					here.addElement(list_2.getSelectedValue());
+					more.remove(list_2.getSelectedIndex());
+					Program.enrolStudent(selected);
+				}
+			}
+		});
+		contentPane.add(EnrolAndHere);
 		
 		JLabel lblScannedIn = new JLabel("Scanned in");
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblScannedIn, 74, SpringLayout.WEST, contentPane);
@@ -79,6 +135,7 @@ public class StudentDisplay extends JFrame {
 		contentPane.add(lblAbsent);
 		
 		JLabel lblScannedInAnd = new JLabel("Scanned in and not enrolled");
+		sl_contentPane.putConstraint(SpringLayout.EAST, EnrolAndHere, 0, SpringLayout.EAST, lblScannedInAnd);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblScannedInAnd, -10, SpringLayout.NORTH, list_2);
 		sl_contentPane.putConstraint(SpringLayout.EAST, lblScannedInAnd, -127, SpringLayout.EAST, contentPane);
 		contentPane.add(lblScannedInAnd);

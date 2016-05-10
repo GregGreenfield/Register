@@ -37,4 +37,25 @@ public class Register {
 		return students;
 	}
 	
+	public void changeStudentAttend(String id){
+		for(int i = 0; i < students.size(); i++)
+		{
+			if (students.get(i).getStudentID().equals(id))
+				students.get(i).changeAttend();
+		}
+	}
+	
+	public Student getStudent(String id){
+		for(int i = 0; i < students.size(); i++)
+		{
+			if (students.get(i).getStudentID().equals(id))
+				return students.get(i);
+		}
+		
+		return null;
+	}
+	
+	public int getStudentsSize(){
+		return students.size();
+	}
 }
