@@ -1,13 +1,15 @@
 package register;
 
 public class Student {
+	private Integer enrolID;
 	private Integer StudentID;
 	private String name;
 	private String RFID;
 	private boolean enrolled;
 	private boolean attend;
 	
-	public Student(int StudentID, String name, String RFID, boolean enrolled, boolean attend){
+	public Student(int enrol, int StudentID, String name, String RFID, boolean enrolled, boolean attend){
+		this.enrolID = enrol;
 		this.StudentID = StudentID;
 		this.name = name;
 		this.RFID = RFID;
@@ -15,6 +17,10 @@ public class Student {
 		this.attend = attend;
 	}
 
+	public String getEnrolID(){
+		return enrolID.toString();
+	}
+	
 	public String getStudentID() {
 		return StudentID.toString();
 	}

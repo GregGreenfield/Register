@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.wb.internal.swing.model.property.editor.font.FontDialog">
-		<item value="708" key="x"/>
+		<item value="446" key="x"/>
 		<item value="504" key="width"/>
-		<item value="267" key="y"/>
+		<item value="131" key="y"/>
 		<item value="506" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.accelerator.KeyStrokePropertyEditor$KeyStrokeDialog">
+		<item value="492" key="x"/>
+		<item value="382" key="width"/>
+		<item value="124" key="y"/>
+		<item value="480" key="height"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.icon.ImagePropertyEditor$ImageDialog">
+		<item value="242" key="x"/>
+		<item value="881" key="width"/>
+		<item value="84" key="y"/>
+		<item value="559" key="height"/>
 	</section>
 	<section name="org.eclipse.wb.internal.swing.model.property.editor.icon.IconPropertyEditor$ImageDialog">
 		<item value="519" key="x"/>
