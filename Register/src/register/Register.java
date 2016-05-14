@@ -27,8 +27,8 @@ public class Register {
 		return registerID.toString();
 	}
 	
-	public void addStudent(int id, String name,String RFID, boolean enrolled, boolean attend){
-		Student st = new Student(id, name, RFID, enrolled, attend);
+	public void addStudent(int enrol,int id, String name,String RFID, boolean enrolled, boolean attend){
+		Student st = new Student(enrol,id, name, RFID, enrolled, attend);
 		
 		students.add(st);
 	}

@@ -10,12 +10,16 @@ public class Teacher {
 	
 	public Teacher(int TID, String name)
 	{
-		System.out.println("Teacher made!!!!");
 		this.TID = TID;
 		this.name = name;
 		classes = new ArrayList<Classes>();
 	}
 	
+	public Teacher() {
+		TID = 0;
+		name = "";
+	}
+
 	public String getName(){
 		return name;
 	}
@@ -24,8 +28,8 @@ public class Teacher {
 		return TID;
 	}
 	
-	public void addClass(int classID, String className){
-		Classes cl = new Classes(classID, className);
+	public void addClass(int classID, String className, String available){
+		Classes cl = new Classes(classID, className, available);
 		
 		classes.add(cl);		
 	}
@@ -34,7 +38,6 @@ public class Teacher {
 		List<String> ls = new ArrayList<String>();
 		
 		for(int i = 0; i < classes.size(); i++){
-			System.out.println(classes.get(i).getName());
 			ls.add(classes.get(i).getClassID() + " " + classes.get(i).getName() );
 		}
 		
@@ -47,6 +50,10 @@ public class Teacher {
 				return classes.get(i);
 		}
 	
-		return new Classes(0, "false");
+		return new Classes(0, "false", "f");
+	}
+	
+	public Classes getLastClass(){
+		return classes.get(classes.size()-1);
 	}
 }
