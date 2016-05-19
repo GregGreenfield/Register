@@ -125,7 +125,7 @@ public class DBConnection {
 		return ret;
 	}
 	
-	public void addRegEnroll(int REID, String RID, String EID) throws SQLException{
+	public void addRegEnroll(int REID, String RID, String EID, String type) throws SQLException{
 		String sql = "INSERT INTO `registerdb`.`RegEnrol` (`RegEnrolID`, `RegID`, `EnrolID`, `Attened`)"
 				+ "VALUES(?,?,?,?);";
 		
@@ -134,7 +134,7 @@ public class DBConnection {
 		pre.setInt(1, REID);
 		pre.setString(2, RID);
 		pre.setString(3, EID);
-		pre.setString(4, "t");
+		pre.setString(4, type);
 		
 		pre.execute();
 	}
@@ -182,6 +182,22 @@ public class DBConnection {
 		pre.execute();
 	}
 	
+	public String getEnrolID(String studentID, String classID) throws SQLException{
+		String sql = "SELECT `Enrol`.`enrolId` FROM `registerdb`.`Enrol` WHERE studentID = ? AND classID = ? AND ellrolled = ?;";
+		PreparedStatement pre = conn.prepareStatement(sql);
+		
+		pre.setString(1, studentID);
+		pre.setString(2, classID);
+		pre.setString(3, "t");
+
+		ResultSet rs = pre.executeQuery();
+		
+		if (rs.next())
+			return rs.getString("enrolId");
+		
+		return null;		
+	}
+
 	public int getEnrolSize() throws SQLException{
 		String sql = "SELECT `Enrol`.`enrolId`  FROM `registerdb`.`Enrol`;";
 		stmt = conn.createStatement();
@@ -205,6 +221,7 @@ public class DBConnection {
 		
 		return count;
 	}
+	
 	public void insertRegister(int registerID, String classID, String date, String time) throws SQLException{
 		String sql = "INSERT INTO `registerdb`.`Register`(`registerID`,`classID`,`registerDate`,`registerTime`,`available`) VALUES"
 				+ "(?,?,?,?,?);";
@@ -217,6 +234,26 @@ public class DBConnection {
 		pre.setString(5, "t");
 		
 		pre.execute();
+		
+		enrolStudents(registerID, classID);
+	}
+	
+	public void enrolStudents(int registerID, String classID){
+		try {
+			ResultSet students = getStudents();
+			
+			while(students.next()){
+				String studentID = students.getString("studentID");
+				
+				String enrolID = getEnrolID(studentID, classID);
+				
+				if(enrolID != null){
+					addRegEnroll(getSizeOfRegEnroll(), String.valueOf(registerID), enrolID, "f");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteRegister(String registerID) throws SQLException{

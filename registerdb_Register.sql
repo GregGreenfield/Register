@@ -29,6 +29,7 @@ CREATE TABLE `Register` (
   `classID` int(11) NOT NULL,
   `registerDate` date DEFAULT NULL,
   `registerTime` int(11) DEFAULT NULL,
+  `available` char(1) DEFAULT NULL,
   PRIMARY KEY (`registerID`),
   UNIQUE KEY `registerID_UNIQUE` (`registerID`),
   KEY `classID_idx` (`classID`),
@@ -42,7 +43,7 @@ CREATE TABLE `Register` (
 
 LOCK TABLES `Register` WRITE;
 /*!40000 ALTER TABLE `Register` DISABLE KEYS */;
-INSERT INTO `Register` VALUES (1,6260,NULL,NULL);
+INSERT INTO `Register` VALUES (1,6260,'2016-06-06',1000,'t'),(2,6260,'2016-01-01',1200,'f'),(3,1,'2000-10-10',1010,'t');
 /*!40000 ALTER TABLE `Register` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-05 19:13:50
+-- Dump completed on 2016-05-19 14:32:39

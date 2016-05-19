@@ -28,6 +28,7 @@ CREATE TABLE `Class` (
   `classID` int(11) NOT NULL,
   `className` varchar(45) DEFAULT NULL,
   `teacherID` int(11) DEFAULT NULL,
+  `available` char(1) DEFAULT NULL,
   PRIMARY KEY (`classID`),
   UNIQUE KEY `classID_UNIQUE` (`classID`),
   KEY `teacherID_idx` (`teacherID`),
@@ -41,7 +42,7 @@ CREATE TABLE `Class` (
 
 LOCK TABLES `Class` WRITE;
 /*!40000 ALTER TABLE `Class` DISABLE KEYS */;
-INSERT INTO `Class` VALUES (6260,'Java',11),(7263,'Programming 3',11);
+INSERT INTO `Class` VALUES (1,' Test',11,'t'),(6260,'Java',11,'t');
 /*!40000 ALTER TABLE `Class` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-05 19:13:54
+-- Dump completed on 2016-05-19 14:32:44

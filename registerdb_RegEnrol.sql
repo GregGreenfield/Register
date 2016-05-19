@@ -18,34 +18,33 @@ USE `registerdb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Enrol`
+-- Table structure for table `RegEnrol`
 --
 
-DROP TABLE IF EXISTS `Enrol`;
+DROP TABLE IF EXISTS `RegEnrol`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Enrol` (
-  `enrolId` int(11) NOT NULL,
-  `studentID` int(11) NOT NULL,
-  `classID` int(11) NOT NULL,
-  `ellrolled` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`enrolId`),
-  UNIQUE KEY `enrolId_UNIQUE` (`enrolId`),
-  KEY `studentID_idx` (`studentID`),
-  KEY `classID_idx` (`classID`),
-  CONSTRAINT `classFK` FOREIGN KEY (`classID`) REFERENCES `Class` (`classID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `studentID` FOREIGN KEY (`studentID`) REFERENCES `Student` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `RegEnrol` (
+  `RegEnrolID` int(11) NOT NULL,
+  `RegID` int(11) NOT NULL,
+  `EnrolID` int(11) NOT NULL,
+  `Attened` char(1) DEFAULT NULL,
+  PRIMARY KEY (`RegEnrolID`),
+  KEY `StudentID_idx` (`EnrolID`),
+  KEY `RegID_idx` (`RegID`),
+  CONSTRAINT `EnrolID` FOREIGN KEY (`EnrolID`) REFERENCES `Enrol` (`enrolId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `RegID` FOREIGN KEY (`RegID`) REFERENCES `Register` (`registerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Enrol`
+-- Dumping data for table `RegEnrol`
 --
 
-LOCK TABLES `Enrol` WRITE;
-/*!40000 ALTER TABLE `Enrol` DISABLE KEYS */;
-INSERT INTO `Enrol` VALUES (1,2144001,6260,'t'),(2,112244,6260,'t'),(3,2144111,6260,'t'),(6,112244,1,'t'),(12,2144001,1,'t'),(24,2144111,1,'t');
-/*!40000 ALTER TABLE `Enrol` ENABLE KEYS */;
+LOCK TABLES `RegEnrol` WRITE;
+/*!40000 ALTER TABLE `RegEnrol` DISABLE KEYS */;
+INSERT INTO `RegEnrol` VALUES (1,1,1,'t'),(2,1,2,'t'),(4,1,3,'f'),(8,2,3,'t'),(15,3,6,'f'),(30,3,12,'t'),(60,3,24,'f');
+/*!40000 ALTER TABLE `RegEnrol` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-19 14:32:41
+-- Dump completed on 2016-05-19 14:32:42

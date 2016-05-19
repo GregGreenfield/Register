@@ -293,7 +293,7 @@ public class Program {
 						e.printStackTrace();
 					}
 				}else{
-					dbconnection.addRegEnroll(dbconnection.getSizeOfRegEnroll()+1, RID, S1.getEnrolID());		
+					dbconnection.addRegEnroll(dbconnection.getSizeOfRegEnroll()+1, RID, S1.getEnrolID(), "t");		
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
