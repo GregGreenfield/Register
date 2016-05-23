@@ -1,6 +1,12 @@
 package register;
 
 import java.awt.EventQueue;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -389,7 +395,33 @@ public class Program {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static void saveFile(String filename, String dir){
+		List<Student> students = R1.getStudents();
 		
+		try {
+			File directory = new File (dir);
+			File actualFile = new File (directory, filename);
+			OutputStream out = new FileOutputStream(actualFile);
+			OutputStreamWriter writer = new OutputStreamWriter(out);
 		
+			for(int i =0; i < students.size(); i++){
+				writer.write(students.get(i).returnDetails() + System.getProperty("line.separator"));
+			}
+			
+			writer.flush();
+			writer.close();			
+		try {
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}	
 	}
 }

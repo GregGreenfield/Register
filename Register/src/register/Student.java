@@ -67,4 +67,15 @@ public class Student {
 		else if(attend == false)
 			attend = true;
 	}
+	
+	public String returnDetails(){
+		String dets = getStudentID() + ", " + getName() + ", ";
+		
+		if(attend == true)
+			dets = dets + "Here" ;
+		else if(attend == false)
+			dets = dets + "Away" ;
+		
+		return dets;
+	}
 }

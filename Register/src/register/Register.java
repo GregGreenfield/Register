@@ -23,6 +23,7 @@ public class Register {
 	public String getTime(){
 		return time;
 	}
+	
 	public String getRegisterID(){
 		return registerID.toString();
 	}

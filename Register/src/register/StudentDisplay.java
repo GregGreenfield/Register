@@ -9,11 +9,13 @@ import javax.swing.SpringLayout;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JMenuBar;
 import java.awt.Font;
 import javax.swing.JMenu;
@@ -27,7 +29,9 @@ public class StudentDisplay extends JFrame {
 	private DefaultListModel here = new DefaultListModel();
 	private DefaultListModel absent = new DefaultListModel();
 	private DefaultListModel more = new DefaultListModel();
+	private JTextField filename = new JTextField(), dir = new JTextField();
 
+	
 	public StudentDisplay() {
 		setTitle("Students");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +49,25 @@ public class StudentDisplay extends JFrame {
 				Program.changeState(State.Logout);
 			}
 		});
+		
+		JMenuItem SaveMenu = new JMenuItem("Save");
+		SaveMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser c = new JFileChooser();
+			      
+				int rVal = c.showSaveDialog(null);
+			    if (rVal == JFileChooser.APPROVE_OPTION) {
+			    	filename.setText(c.getSelectedFile().getName());
+			        dir.setText(c.getCurrentDirectory().toString());
+			        Program.saveFile(filename.getText(), dir.getText());
+			    }
+			    if (rVal == JFileChooser.CANCEL_OPTION) {
+			        filename.setText("You pressed cancel");
+			        dir.setText("");
+			    }
+			}
+		});
+		mnFile.add(SaveMenu);
 		mnFile.add(mntmLogout);
 		
 		JMenu mnHelp = new JMenu("Help");
